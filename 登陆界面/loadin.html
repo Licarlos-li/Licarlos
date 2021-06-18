@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>loadin</title>
+    <style type="text/css">
+     span{
+        font-size: 12px;
+        color: crimson;
+    }
+    #gettime{
+        font-size:30px;
+        color: cyan;
+    }
+    </style>
+</head>
+<body>
+    <script type="text/Javascript">
+    function gettiming() {
+    var time = new Date().toLocaleString();
+    document.getElementById("gettime").innerHTML=time;
+     }
+    window.setInterval(gettiming,1000);
+        window.onload=function(){
+            var lgless = document.getElementById("lg")
+            var usernameEle = document.getElementById("username");
+            var passwordEle = document.getElementById("password");
+            var firmEle = document.getElementById("firmpassword");
+            var ps = document.getElementById("pswd");
+            usernameEle.onblur = function(){
+                var us=usernameEle.value
+                us = us.trim();
+                if(us.length==0){
+                    lgless.innerHTML="用户名不能为空";
+                }
+                    else{
+                        if(us.length<6 || us.length>16){
+                            lgless.innerHTML="用户名长度必须在6到16个数字之间";
+                        }
+                        else{
+                            var regExp=/^[0-9A-Za-z]+$/
+                            var ok = regExp.test(us)
+                            if(ok){
+                                //合法
+                            }
+                            else{
+                                lgless.innerHTML="用户名必须由数字以及字母组成";
+                            }
+                            } 
+                        }
+                }
+                usernameEle.onfocus =function(){
+                    lgless.innerHTML="";
+                }
+            firmEle.onblur = function(){
+                if(passwordEle.value !== firmEle.value){
+                ps.innerHTML="密码与确认密码不相等";
+                }
+                }
+            firmEle.onfocus=function(){
+                ps.innerHTML="";
+            }
+            document.getElementById("zhuce").onclick=function(){
+                usernameEle.focus();
+                usernameEle.blur();
+                firmEle.focus();
+                firmEle.blur();
+                if(lgless.innerHTML=="" && ps.innerHTML=="")
+                {
+                var formObj =document.getElementById("userform")
+                formObj.submit();
+                }
+            }
+        }
+    </script>        
+    <form  id="userform" action="">
+        用户名<input type="text",name="username"  id="username"/>
+        <br>
+        <span  id="lg"></span>
+        <br>
+        密码<input type="password",name="password"  id="password" />
+        <br>
+        确认密码<input type="password",  id="firmpassword"/>
+        <br>
+        <span id="pswd"></span>
+        <br>
+        <input type="button"  value="注册"  id="zhuce"/>
+    </form>
+
+    <br>
+    <span id="gettime"></span>
+
+</body>
+</html>
