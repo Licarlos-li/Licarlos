@@ -1,0 +1,15 @@
+2022.2.10
+  1.研究Qlineedit添加clicked事件
+  def eventFilter(self, widget, event):
+        if widget == self.num_forming_cylinder_distance:
+            if event.type() == QEvent.FocusOut:
+                pass
+            elif event.type() == QEvent.FocusIn:
+                self.clicked.emit()   #当焦点再次落到edit输入框时，发送clicked信号出去
+        else:
+            pass
+        return False
+        注意事件完成之后需要使用  clearFocus（）来取消掉焦点事件，不然会无限循环执行clicked绑定的事件
+        
+  2.华成机器排气之后，气路全部关掉，原因是485通讯太慢，气压检测值过高，关闭了所有的气路。
+  
