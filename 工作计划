@@ -59,3 +59,10 @@
           form = WinForm()
           form.show()
           sys.exit(app.exec_())
+
+2022.2.15
+  更新时需要把密码改成全数字
+  成形缸和料缸行程
+  光标问题设置readonly
+  
+  
