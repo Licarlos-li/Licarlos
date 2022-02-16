@@ -65,4 +65,17 @@
   成形缸和料缸行程
   光标问题设置readonly
   
+2022.2.16
+   研究关于qss的界面美化（和css很相似，属性：数值）
+   font-family：设置字体
+text-align：设置文本文字对齐方式
+background:设置控件背景色
+border:设置边界，none为无边界
+font-size：字体大小
+border-radius:设置四边圆角
+hover：伪状态，设置鼠标悬浮在控件上方时变化
+
+  更改了字体为微软素黑
+  更改了输出框的形状
+
   
