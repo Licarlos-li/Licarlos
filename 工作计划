@@ -84,5 +84,44 @@ hover：伪状态，设置鼠标悬浮在控件上方时变化
 2022.2.18
     子窗口关闭后，无法再操作子窗口开启的子进程
     具体解决方法为，将变量存放在外部，在使用的时候读取。
+2022.2.21
+    platform模块，提供了很多方法去获取操作系统的信息，
+    其中platform.system  可以获取操作系统的类型。
     
+    python的opengl模块，pyopengl学习
+    OpenGL 是 Open Graphics Library 的简写，意为“开放式图形库”，是用于渲染 2D、3D 矢量图形的跨语言、跨平台的应用程序编程接口（API）。OpenGL 不是一个独立的平台，因此，它需要借助于一种编程语言才能被使用。C / C++ / python / java 都可以很好支持 OpengGL
     
+    核心库包含有115个函数，函数名的前缀为gl。这部分函数用于常规的、核心的图形处理。此函数由gl.dll来负责解释执行。由于许多函数可以接收不同数以下几类。据类型的参数，因此派生出来的函数原形多达300多个。核心库中的函数主要可以分为以下几类函数：
+
+绘制基本几何图元的函数：
+glBegain()、glEnd()、glNormal*()、glVertex*()
+
+矩阵操作、几何变换和投影变换的函数：
+如矩阵入栈函数glPushMatrix()，矩阵出栈函数glPopMatrix()，装载矩阵函数glLoadMatrix()，矩阵相乘函数glMultMatrix()，当前矩阵函数glMatrixMode()和矩阵标准化函数glLoadIdentity()，几何变换函数glTranslate*()、glRotate*()和glScale*()，投影变换函数glOrtho()、glFrustum()和视口变换函数glViewport()
+
+颜色、光照和材质的函数：
+如设置颜色模式函数glColor*()、glIndex*()，设置光照效果的函数glLight*() 、glLightModel*()和设置材质效果函数glMaterial()
+
+显示列表函数：
+主要有创建、结束、生成、删除和调用显示列表的函数glNewList()、glEndList()、glGenLists()、glCallList()和glDeleteLists()
+
+纹理映射函数：
+主要有一维纹理函数glTexImage1D()、二维纹理函数glTexImage2D()、设置纹理参数、纹理环境和纹理坐标的函数glTexParameter*()、glTexEnv*()和glTetCoord*()
+
+特殊效果函数：
+融合函数glBlendFunc()、反走样函数glHint()和雾化效果glFog*()
+
+光栅化、象素操作函数：
+如象素位置glRasterPos*()、线型宽度glLineWidth()、多边形绘制模式glPolygonMode()，读取象素glReadPixel()、复制象素glCopyPixel()
+
+选择与反馈函数：
+主要有渲染模式glRenderMode()、选择缓冲区glSelectBuffer()和反馈缓冲区glFeedbackBuffer()
+
+曲线与曲面的绘制函数：
+生成曲线或曲面的函数glMap*()、glMapGrid*()，求值器的函数glEvalCoord*() glEvalMesh*()
+
+状态设置与查询函数：
+glGet*()、glEnable()、glGetError()
+顶点（vertex）是 OpengGL 中非常重要的概念，描述线段、多边形都离不开顶点。和设置颜色类似，设置顶点的函数也有几十个，都是以 glVertex 开头，后面跟着参数个数和参数类型，同样也支持将多个以向量方式传递。
+两个参数的话，分别表示 xy 坐标，三个参数则分别表示 xyz 坐标。如有第四个参数，则表示该点的齐次坐标 w；否则，默认 w=1
+
