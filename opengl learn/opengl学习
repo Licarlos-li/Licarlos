@@ -10,3 +10,83 @@ glBegin() 后面可能用到的参数
   GL_TRIANGLE_FAN	绘制多个三角形组成的扇形
   GL_QUADS	绘制一个或多个四边形
   GL_QUAD_STRIP	绘制连续四边形
+
+1.开始绘图之前，需要对画布做一些初始化工作，这些工作只需要做一次。比如：
+  glClearColor(0.0, 0.0, 0.0, 1.0) # 设置画布背景色。注意：这里必须是4个参数
+  glEnable(GL_DEPTH_TEST)          # 开启深度测试，实现遮挡关系
+  glDepthFunc(GL_LEQUAL)           # 设置深度测试函数（GL_LEQUAL只是选项之一）
+2.清除屏幕及深度缓存
+  每次重绘之前，需要先清除屏幕及深度缓存。这项操作一般放在绘图函数的开头。
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+3.设置投影
+   投影设置也是每次重绘都需要的步骤之一。glOrtho() 用来设置平行投影，glFrustum() 用来设置透视投影。这两个函数的参数相同，都是视景体的 left / right / bottom / top / near / far 六个面。
+
+  视景体的 left / right / bottom / top 四个面围成的矩形，就是视口。near 就是投影面，其值是投影面距离视点的距离，far 是视景体的后截面，其值是后截面距离视点的距离。
+  far 和 near 的差值，就是视景体的深度。视点和视景体的相对位置关系是固定的，视点移动时，视景体也随之移动。
+  视景体是 OpengGL 最重要、最核心的概念，它和视口、视点、投影面、缩放、漫游等概念密切关联。只有正确理解了视景体，才能正确设置它的六个参数，才能呈现出我们期望的效果。
+  为了在窗口宽高比改变时，绘制的对象仍然保持固定的宽高比，一般在做投影变换时，需要根据窗口的宽高比适当调整视景体的 left / right 或者 bottom / top 参数。
+  假设 view 是视景体，width 和 height 是窗口的宽度和高度，在投影变换之前，需要先声明是对投影矩阵的操作，并将投影矩阵单位化：
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    if width > height:
+	    k = width / height
+	    glFrustum(view [0]*k, view [1]*k, view [2], view [3], view [4], view [5])
+    else:
+	    k = height / width
+	    glFrustum(view [0], view [1], view [2]*k, view [3]*k, view [4], view [5])
+4.设置视点
+    视点是和视景体关联的概念。设置视点需要考虑眼睛在哪儿、看哪儿、头顶朝哪儿，分别对应着eye, lookat 和 eye_up 三个向量。
+    gluLookAt(
+       eye[0], eye[1], eye[2], 
+       look_at[0], look_at[1], look_at[2],
+       eye_up[0], eye_up[1], eye_up[2])
+5.设置视口
+    视口也是和视景体关联的概念，相对简单一点
+    glViewport(0, 0, width, height)
+6.设置模型视图
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glScale(1.0, 1.0, 1.0)
+7.捕捉鼠标事件、键盘事件和窗口事件
+    GLUT 库提供了几个函数帮我们捕捉鼠标事件、键盘事件和窗口事件：
+
+    glutMouseFunc()
+    该函数捕捉鼠标点击和滚轮操作，返回4个参数给被绑定的事件函数：键（左键/右键/中键/滚轮上/滚轮下）、状态（1/0）、x坐标、y坐标
+
+    glutMotionFunc()
+    该函数捕捉有一个鼠标键被按下时的鼠标移动给被绑定的事件函数，返回2个参数：x坐标、y坐标
+
+    glutPassiveMotionFunc()
+    该函数捕捉鼠标移动，返回2个参数给被绑定的事件函数：x坐标、y坐标
+
+    glutEntryFunc()
+    该函数捕捉鼠标离开或进入窗口区域，返回1个参数给被绑定的事件函数：GLUT_LEFT 或者 GLUT_ENTERED
+
+    glutKeyboardFunc(keydown)
+    该函数捕捉键盘按键被按下，返回3个参数给被绑定的事件函数：被按下的键，x坐标、y坐标
+
+    glutReshapeFunc()
+    该函数捕捉窗口被改变大小，返回2个参数给被绑定的事件函数：窗口宽度、窗口高度
+    
+    如果我们需要捕捉这些事件，只需要定义事件函数，注册相应的函数就行：
+    def reshape(width, height):
+	    pass
+
+    def mouseclick(button, state, x, y):
+	    pass
+
+    def mousemotion(x, y):
+	    pass
+
+    def keydown(key, x, y):
+	    pass
+    glutReshapeFunc(reshape)            # 注册响应窗口改变的函数reshape()
+    glutMouseFunc(mouseclick)           # 注册响应鼠标点击的函数mouseclick()
+    glutMotionFunc(mousemotion)         # 注册响应鼠标拖拽的函数mousemotion()
+    glutKeyboardFunc(keydown)           # 注册键盘输入的函数keydown()
+
+
+
+
+  
+
