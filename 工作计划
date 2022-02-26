@@ -142,6 +142,258 @@ glGet*()、glEnable()、glGetError()
     7.增加了单独出光扫任一轮廓
     8.软件初始化
     软件更新
+2022.2.25
+  pyc文件反编译
+2022.2.26
+   opengl研究
+   def drawline_vbo(self, max_show_line_tmp):
+        try:
+            if self.htmjob:
+                if self.part_state:
+                    self.final_line = True
+                    max_show_line = copy.deepcopy(max_show_line_tmp)
+                    start_index = len(self.num_array)
+                    for part_id in self.part_color:
+                        glPushMatrix()
+                        self.camera.Update()
+                        operation = self.htmjob.header['part'][str(part_id)]['property']['operation']
+                        translate = operation['translation']
+                        rotate = operation['rotation']
+                        scaling = operation['scaling']
+                        x_min = self.htmjob.header['part'][str(part_id)]['property']['border']['xmin'] * self.htmjob.header['part'][str(part_id)]['property']['unit']
+                        x_max = self.htmjob.header['part'][str(part_id)]['property']['border']['xmax'] * self.htmjob.header['part'][str(part_id)]['property']['unit']
+                        y_min = self.htmjob.header['part'][str(part_id)]['property']['border']['ymin'] * self.htmjob.header['part'][str(part_id)]['property']['unit']
+                        y_max = self.htmjob.header['part'][str(part_id)]['property']['border']['ymax'] * self.htmjob.header['part'][str(part_id)]['property']['unit']
+                        points = self._get_rotate_point(x_min, x_max, y_min, y_max, rotate)
+                        center_x = (x_min + x_max) / 2
+                        center_y = (y_min + y_max) / 2
+                        if part_id == self.select_index:
+                            if points:
+                                glBegin(GL_LINE_LOOP)
+                                glColor(1, 0, 0)
+                                glVertex2f(points[0][0], points[0][1])
+                                glVertex2f(points[1][0], points[1][1])
+                                glVertex2f(points[2][0], points[2][1])
+                                glVertex2f(points[3][0], points[3][1])
+                                glEnd()
+                        glTranslate(center_x, center_y, 0)
+                        glRotate(rotate, 0, 0, 1)
+                        glScale(scaling[0], scaling[1], 1)
+                        glTranslate(-center_x, -center_y, 0)
+                        glTranslate(translate[0], translate[1], 0)
+                        i = 0
+                        for process_id in self.part_color[part_id]:
+                            if process_id == 16 or process_id == 0 or process_id == 1 or process_id == 2 or process_id == 12:
+                                if process_id == 16:
+                                    glColor(self.color['support'][0], self.color['support'][1], self.color['support'][2])
+                                    if start_index + self.part_color[part_id][process_id] < max_show_line:
+                                        glDrawArrays(GL_LINES, start_index, self.part_color[part_id][process_id])
+                                        start_index += self.part_color[part_id][process_id]
+                                        continue
+                                    else:
+                                        end_index = max_show_line - start_index
+                                        glDrawArrays(GL_LINES, start_index, end_index)
+                                        start_index += end_index
+                                        self.final_line = False
+                                        break
+                                else:
+                                    for one in self.part_color[part_id][process_id]:
+                                        if process_id == 0:
+                                            if i % 2 == 0:
+                                                glColor(self.color['entity_skin_1'][0], self.color['entity_skin_1'][1], self.color['entity_skin_1'][2])
+                                            else:
+                                                glColor(self.color['entity_skin_2'][0], self.color['entity_skin_2'][1], self.color['entity_skin_2'][2])
+                                        else:
+                                            if process_id == 1:
+                                                if i % 2 == 0:
+                                                    glColor(self.color['up_1'][0], self.color['up_1'][1], self.color['up_1'][2])
+                                                else:
+                                                    glColor(self.color['up_2'][0], self.color['up_2'][1], self.color['up_2'][2])
+                                            else:
+                                                if process_id == 2:
+                                                    if i % 2 == 0:
+                                                        glColor(self.color['down_1'][0], self.color['down_1'][1], self.color['down_1'][2])
+                                                    else:
+                                                        glColor(self.color['down_2'][0], self.color['down_2'][1], self.color['down_2'][2])
+                                                else:
+                                                    if process_id == 12:
+                                                        if i % 2 == 0:
+                                                            glColor(self.color['entity_core_1'][0], self.color['entity_core_1'][1], self.color['entity_core_1'][2])
+                                                        else:
+                                                            glColor(self.color['entity_core_2'][0], self.color['entity_core_2'][1], self.color['entity_core_2'][2])
+                                        if self.show_single_section == 1:
+                                            if i % 2 == 0:
+                                                if start_index + one < max_show_line:
+                                                    glDrawArrays(GL_LINES, start_index, one)
+                                                    start_index += one
+                                                    i += 1
+                                                    continue
+                                                else:
+                                                    end_index = max_show_line - start_index
+                                                    glDrawArrays(GL_LINES, start_index, end_index)
+                                                    start_index += end_index
+                                                    self.final_line = False
+                                                    break
+                                            else:
+                                                if start_index + one < max_show_line:
+                                                    start_index += one
+                                                    i += 1  
+                                                    continue
+                                                else:
+                                                    end_index = max_show_line - start_index
+                                                    start_index += end_index
+                                                    self.final_line = False
+                                                    break
+                                        else:
+                                            if self.show_single_section == 2:
+                                                if i % 2 == 0:
+                                                    if start_index + one < max_show_line:
+                                                        start_index += one
+                                                        i += 1
+                                                        continue
+                                                    else:
+                                                        end_index = max_show_line - start_index
+                                                        start_index += end_index
+                                                        self.final_line = False
+                                                        break
+                                                else:
+                                                    if start_index + one < max_show_line:
+                                                        glDrawArrays(GL_LINES, start_index, one)
+                                                        start_index += one
+                                                        i += 1
+                                                        continue
+                                                    else:
+                                                        end_index = self.max_show_line - start_index
+                                                        glDrawArrays(GL_LINES, start_index, end_index)
+                                                        start_index += end_index
+                                                        self.final_line = False
+                                                        break
+                                            else:
+                                                if start_index + one < max_show_line:
+                                                    glDrawArrays(GL_LINES, start_index, one)
+                                                    start_index += one
+                                                    i += 1
+                                                    continue
+                                                else:
+                                                    end_index = max_show_line - start_index
+                                                    glDrawArrays(GL_LINES, start_index, end_index)
+                                                    start_index += end_index
+                                                    self.final_line = False
+                                                    break
+ 
+                                if self.final_line:
+                                    continue
+                                else:
+                                    break
+                            else:
+                                if process_id == 3:
+                                    glColor(self.color['entity_inner'][0], self.color['entity_inner'][1], self.color['entity_inner'][2])
+                                else:
+                                    if process_id == 4:
+                                        glColor(self.color['up_inner'][0], self.color['up_inner'][1], self.color['up_inner'][2])
+                                    else:
+                                        if process_id == 5:
+                                            glColor(self.color['down_inner'][0], self.color['down_inner'][1], self.color['down_inner'][2])
+                                        else:
+                                            if process_id == 6:
+                                                glColor(self.color['entity_outer'][0], self.color['entity_outer'][1], self.color['entity_outer'][2])
+                                            else:
+                                                if process_id == 7:
+                                                    glColor(self.color['up_outer'][0], self.color['up_outer'][1], self.color['up_outer'][2])
+                                                else:
+                                                    if process_id == 8:
+                                                        glColor(self.color['down_outer'][0], self.color['down_outer'][1], self.color['down_outer'][2])
+                                                for one in self.part_color[part_id][process_id]:
+                                                    if start_index + one < self.max_show_line:
+                                                        glDrawArrays(GL_LINE_STRIP, start_index, one)
+                                                        start_index += one
+                                                        continue
+                                                    else:
+                                                        end_index = self.max_show_line - start_index
+                                                        glDrawArrays(GL_LINE_STRIP, start_index, end_index)
+                                                        start_index += end_index
+                                                        self.final_line = False
+                                                        break
+ 
+                                                if self.final_line:
+                                                    continue
+                                                else:
+                                                    break
+ 
+                        if self.border_sections:
+                            if self.showBorder:
+                                i = 0
+                                for border_section in self.border_sections:
+                                    if i % 2 == 0:
+                                        glColor(self.color['border_section_1'][0], self.color['border_section_1'][1], self.color['border_section_1'][2])
+                                    else:
+                                        glColor(self.color['border_section_2'][0], self.color['border_section_2'][1], self.color['border_section_2'][2])
+                                    glBegin(GL_LINE_STRIP)
+                                    for point in border_section:
+                                        glVertex2f(point[0], point[1])
+ 
+                                    glEnd()
+                                    i += 1
+ 
+                        glPopMatrix()
+ 
+                else:
+                    if self.parts:
+                        if not self.part_state:
+                            for part in self.parts:
+                                thick = self.thick * self.showlayer
+                                layer = part.get_layer_from_z(thick)
+                                if layer:
+                                    glPushMatrix()
+                                    self.camera.Update()
+                                    translate = part.translation
+                                    rotate = part.rotation
+                                    scaling = part.sacling
+                                    center_x = part.cli.border.Xcenter * part.cli.unit
+                                    center_y = part.cli.border.Ycenter * part.cli.unit
+                                    glTranslate(center_x, center_y, 0)
+                                    glRotate(rotate, 0, 0, 1)
+                                    glScale(scaling[0], scaling[1], 1)
+                                    glTranslate(-center_x, -center_y, 0)
+                                    glTranslate(translate[0], translate[1], 0)
+                                    if layer['cli']:
+                                        if part.select:
+                                            glColor(self.color['cli'][0], self.color['cli'][1], self.color['cli'][2])
+                                        else:
+                                            glColor(self.color['unselect'][0], self.color['unselect'][1], self.color['unselect'][2])
+                                        for polygon in layer['cli']:
+                                            glBegin(GL_LINE_STRIP)
+                                            if polygon:
+                                                for point in polygon:
+                                                    glVertex2f(point[0] * part.cli.unit, point[1] * part.cli.unit)
+ 
+                                                glVertex2f(polygon[0][0] * part.cli.unit, polygon[0][1] * part.cli.unit)
+                                            glEnd()
+ 
+                                    if layer['slc']:
+                                        if part.select:
+                                            glColor(self.color['support'][0], self.color['support'][1], self.color['support'][2])
+                                        else:
+                                            glColor(self.color['unselect'][0], self.color['unselect'][1], self.color['unselect'][2])
+                                        for one_layer in layer['slc']:
+                                            for polygon in one_layer:
+                                                glBegin(GL_LINE_STRIP)
+                                                for point in polygon:
+                                                    glVertex2f(point[0] * part.cli.unit, point[1] * part.cli.unit)
+ 
+                                                if len(polygon) > 3:
+                                                    glVertex2f(polygon[0][0] * part.cli.unit, polygon[0][1] * part.cli.unit)
+                                                glEnd()
+ 
+                                    glPopMatrix()
+ 
+        except Exception as ex:
+            try:
+                glPopMatrix()
+                print(ex)
+            finally:
+                ex = None
+                del ex
     
     
     
