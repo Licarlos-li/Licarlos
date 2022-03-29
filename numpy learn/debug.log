@@ -1,0 +1,111 @@
+Source path:... E:\Documents\GitHub\Licarlos\numpy learn\main.py
+11:34:28.217081 call         6 def learn():
+11:34:28.217081 line         7     a = np.array([[1, 2], [3, 4]])
+New var:....... a = array([[1, 2],       [3, 4]])
+11:34:28.217081 line         8     b = np.array([1, 2, 3, 4, 5], ndmin=2)
+New var:....... b = array([[1, 2, 3, 4, 5]])
+11:34:28.217081 line         9     c = np.array([1, 2, 3], dtype=complex)
+New var:....... c = array([1.+0.j, 2.+0.j, 3.+0.j])
+11:34:28.217081 return       9     c = np.array([1, 2, 3], dtype=complex)
+Return value:.. None
+Elapsed time: 00:00:00.000000
+Source path:... E:\Documents\GitHub\Licarlos\numpy learn\main.py
+11:34:37.205746 call         6 def learn():
+11:34:37.205746 line         7     a = np.array([[1, 2], [3, 4]])
+New var:....... a = array([[1, 2],       [3, 4]])
+11:34:37.205746 line         8     b = np.array([1, 2, 3, 4, 5], ndmin=2)
+New var:....... b = array([[1, 2, 3, 4, 5]])
+11:34:37.205746 line         9     c = np.array([1, 2, 3], dtype=complex)
+New var:....... c = array([1.+0.j, 2.+0.j, 3.+0.j])
+11:34:37.205746 return       9     c = np.array([1, 2, 3], dtype=complex)
+Return value:.. None
+Elapsed time: 00:00:00.000000
+Source path:... E:\Documents\GitHub\Licarlos\numpy learn\main.py
+11:43:45.432121 call         6 def learn():
+11:43:45.432121 line         7     a = np.array([[1, 2], [3, 4]])
+New var:....... a = array([[1, 2],       [3, 4]])
+11:43:45.432121 line         8     b = np.array([1, 2, 3, 4, 5], ndmin=2)
+New var:....... b = array([[1, 2, 3, 4, 5]])
+11:43:45.432121 line         9     c = np.array([1, 2, 3], dtype=complex)
+New var:....... c = array([1.+0.j, 2.+0.j, 3.+0.j])
+11:43:45.432121 line        10     dt = np.dtype('i4')
+New var:....... dt = dtype('int32')
+11:43:45.432121 return      10     dt = np.dtype('i4')
+Return value:.. None
+Elapsed time: 00:00:00.000000
+Source path:... E:\Documents\GitHub\Licarlos\numpy learn\main.py
+13:33:57.758615 call         6 def learn():
+13:33:57.758615 line         7     a = np.array([[1, 2], [3, 4]])
+New var:....... a = array([[1, 2],       [3, 4]])
+13:33:57.758615 line         8     b = np.array([1, 2, 3, 4, 5], ndmin=2)
+New var:....... b = array([[1, 2, 3, 4, 5]])
+13:33:57.758615 line         9     c = np.array([1, 2, 3], dtype=complex)
+New var:....... c = array([1.+0.j, 2.+0.j, 3.+0.j])
+13:33:57.758615 line        10     dt = np.dtype('i4')
+New var:....... dt = dtype('int32')
+13:33:57.758615 line        11     print(a.shape)
+13:33:57.758615 return      11     print(a.shape)
+Return value:.. None
+Elapsed time: 00:00:00.000000
+Source path:... E:\Documents\GitHub\Licarlos\numpy learn\main.py
+14:11:01.881946 call         6 def learn():
+14:11:01.881946 line         7     a = np.array([[1, 2], [3, 4]])
+New var:....... a = array([[1, 2],       [3, 4]])
+14:11:01.881946 line         8     b = np.array([1, 2, 3, 4, 5], ndmin=2)
+New var:....... b = array([[1, 2, 3, 4, 5]])
+14:11:01.881946 line         9     c = np.array([1, 2, 3], dtype=complex)
+New var:....... c = array([1.+0.j, 2.+0.j, 3.+0.j])
+14:11:01.881946 line        10     dt = np.dtype('i4')
+New var:....... dt = dtype('int32')
+14:11:01.881946 line        11     print(a.shape)
+14:11:01.881946 line        13     x = np.empty([3, 2], dtype=int)
+New var:....... x = array([[0, 0],       [0, 0],       [0, 0]])
+14:11:01.881946 return      13     x = np.empty([3, 2], dtype=int)
+Return value:.. None
+Elapsed time: 00:00:00.000000
+Source path:... E:\Documents\GitHub\Licarlos\numpy learn\main.py
+14:38:42.007250 call         6 def learn():
+14:38:42.008250 line         7     a = np.array([[1, 2], [3, 4]])
+New var:....... a = array([[1, 2],       [3, 4]])
+14:38:42.008250 line         8     b = np.array([1, 2, 3, 4, 5], ndmin=2)
+New var:....... b = array([[1, 2, 3, 4, 5]])
+14:38:42.009250 line         9     c = np.array([1, 2, 3], dtype=complex)
+New var:....... c = array([1.+0.j, 2.+0.j, 3.+0.j])
+14:38:42.010249 line        10     dt = np.dtype('i4')
+New var:....... dt = dtype('int32')
+14:38:42.011248 line        11     print(a.shape)
+14:38:42.012247 line        13     x = np.empty([3, 2], dtype=int)
+New var:....... x = array([[0, 0],       [0, 0],       [0, 0]])
+14:38:42.012247 line        14     x = np.arange(10, 20, 2)
+Modified var:.. x = array([10, 12, 14, 16, 18])
+14:38:42.013247 return      14     x = np.arange(10, 20, 2)
+Return value:.. None
+Elapsed time: 00:00:00.006996
+Source path:... E:\Documents\GitHub\Licarlos\numpy learn\main.py
+15:14:56.396183 call         6 def learn():
+15:14:56.396183 line         7     a = np.array([[1, 2], [3, 4]])
+New var:....... a = array([[1, 2],       [3, 4]])
+15:14:56.411807 line         8     b = np.array([1, 2, 3, 4, 5], ndmin=2)
+New var:....... b = array([[1, 2, 3, 4, 5]])
+15:14:56.411807 line         9     c = np.array([1, 2, 3], dtype=complex)
+New var:....... c = array([1.+0.j, 2.+0.j, 3.+0.j])
+15:14:56.411807 line        10     dt = np.dtype('i4')
+New var:....... dt = dtype('int32')
+15:14:56.411807 line        11     print(a.shape)
+15:14:56.411807 line        13     x = np.empty([3, 2], dtype=int)
+New var:....... x = array([[0, 0],       [0, 0],       [0, 0]])
+15:14:56.411807 line        14     x = np.arange(10, 20, 2)
+Modified var:.. x = array([10, 12, 14, 16, 18])
+15:14:56.411807 line        16     a = np.arange(10)
+Modified var:.. a = array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+15:14:56.411807 line        17     s = slice(2, 7, 2)
+New var:....... s = slice(2, 7, 2)
+15:14:56.411807 line        18     print(a[s])
+15:14:56.411807 line        20     x = np.array([[1, 2], [3, 4], [5, 6]])
+Modified var:.. x = array([[1, 2],       [3, 4],       [5, 6]])
+15:14:56.411807 line        21     y = x[[0, 1, 2], [0, 1, 0]]
+New var:....... y = array([1, 4, 5])
+15:14:56.411807 line        22     print(y)
+15:14:56.411807 return      22     print(y)
+Return value:.. None
+Elapsed time: 00:00:00.015624
